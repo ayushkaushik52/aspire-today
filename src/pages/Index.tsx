@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { HeroButton, SecondaryButton } from "@/components/ui/button-variants";
 import { Target, Clock, TrendingUp, Sparkles } from "lucide-react";
-
 const Index = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     // Check if user is already logged in
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({
+      data: {
+        session
+      }
+    }) => {
       if (session) {
         navigate("/dashboard");
       } else {
@@ -18,17 +20,12 @@ const Index = () => {
       }
     });
   }, [navigate]);
-
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-subtle">
+    return <div className="min-h-screen flex items-center justify-center bg-gradient-subtle">
         <Sparkles className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-gradient-subtle">
+  return <div className="min-h-screen bg-gradient-subtle">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-10" />
@@ -52,7 +49,7 @@ const Index = () => {
               <HeroButton onClick={() => navigate("/auth")}>
                 Start Your Journey
               </HeroButton>
-              <SecondaryButton onClick={() => navigate("/auth")}>
+              <SecondaryButton onClick={() => navigate("/auth")} className="text-yellow-50 bg-yellow-500 hover:bg-yellow-400">
                 Learn More
               </SecondaryButton>
             </div>
@@ -109,17 +106,12 @@ const Index = () => {
             step at a time.
           </p>
           <div className="pt-8">
-            <HeroButton
-              onClick={() => navigate("/auth")}
-              className="bg-card text-primary hover:scale-110"
-            >
+            <HeroButton onClick={() => navigate("/auth")} className="bg-card text-primary hover:scale-110">
               Get Started Now
             </HeroButton>
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
